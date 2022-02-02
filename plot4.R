@@ -47,10 +47,10 @@ p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow"))
     xlab("Year") +
     ylab(expression('Total PM'[2.5]*' emissions (Kilotonnes)')) +
     ggtitle(expression('Total PM'[2.5]*' emissions from coal in the USA')) +
-    theme(legend.position = "none", text = element_text(size = 8)) 
+    theme(legend.position = "none", text = element_text(size = 5)) 
 
 ## save the plot
-ggsave("plot4.png", plot = p, width = 3, height = 3)
+ggsave("plot4.png", plot = p, width = 2, height = 2)
 
 
 #####################################

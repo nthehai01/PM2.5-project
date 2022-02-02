@@ -46,10 +46,10 @@ p <- p + geom_bar(stat = "identity") +
     ylab(expression('Total PM'[2.5]*' emissions (Tonnes)')) +
     ggtitle(expression('Total PM'[2.5]*' emissions from all sources in Baltimore by type')) +
     theme(legend.position = "none") +  ## remove legends
-    theme(text = element_text(size = 8))  ## resize text
+    theme(text = element_text(size = 5))  ## resize text
 
 ## save the plot
-ggsave("plot3.png", plot = p, width = 7, height = 3)
+ggsave("plot3.png", plot = p, width = 5, height = 2)
 
 
 #####################################
