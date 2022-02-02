@@ -27,7 +27,7 @@ SCC <- readRDS("./data/Source_Classification_Code.rds")
 
 #####################################
 ## PREPARE DATA
-data <- NEI %>% 
+emissionsByYear <- NEI %>% 
     group_by(year) %>%
     summarise(sum(Emissions)) %>%
     rename("totalEmissions" = "sum(Emissions)")
@@ -35,9 +35,11 @@ data <- NEI %>%
 
 #####################################
 ## PLOT AND SAVE DATA
-png("plot1.png", width = 480, height = 480)
-plot(data$year, data$totalEmissions, type = 'l', 
-     xlab = "Year", ylab = "Total emissions", main = "Total PM2.5 emissions from all sources")
+png("plot1.png", width = 700, height = 700, res = 120)
+barplot(height =  emissionsByYear$totalEmissions/1000000, names.arg = emissionsByYear$year, 
+        xlab = "Years", ylab = expression('Total PM'[2.5]*' emissions (Megatonnes)'),
+        main = expression('Total PM'[2.5]*' emissions from all sources'),
+        col = c("red", "green", "blue", "yellow"))
 dev.off()
 
 
