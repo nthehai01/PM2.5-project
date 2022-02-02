@@ -47,12 +47,12 @@ p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow"))
     xlab("Year") +
     ylab(expression('Total PM'[2.5]*' emissions (Kilotonnes)')) +
     ggtitle(expression('Total PM'[2.5]*' emissions from coal in the USA')) +
-    theme(legend.position = "none")  ## remove legends
+    theme(legend.position = "none", text = element_text(size = 8)) 
 
 ## save the plot
-ggsave("plot4.png", plot = p, width = 7, height = 7)
+ggsave("plot4.png", plot = p, width = 3, height = 3)
 
 
 #####################################
-## ANSWER THE REQUIRED QUESTION: With the exception of POINT, 
-## the remaining three types of sources have reduced the amount of PM2.5 emissions in Baltimore City
+## ANSWER THE REQUIRED QUESTION: As can be seen from the graph, the amount of PM2.5 emitted 
+## from coal combustion-related sources went down by almost 2 times after 10 years in the USA
