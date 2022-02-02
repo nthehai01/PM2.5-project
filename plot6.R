@@ -48,11 +48,11 @@ p <- p + geom_bar(stat = "identity") +
                labeller = labeller(fips = c("06037" = "Los Angeles County", "24510" = "Baltimore City"))) +
     xlab("Year") +
     ylab(expression('Total PM'[2.5]*' emissions (Tonnes)')) +
-    ggtitle(expression('Total PM'[2.5]*' emissions from motor vehicle in the Baltimore City')) +
+    ggtitle(expression('Total PM'[2.5]*' emissions from motor vehicle in Los Angeles and Baltimore City')) +
     theme(legend.position = "none",  text = element_text(size = 5))
 
 ## save the plot
-ggsave("plot6.png", plot = p, width = 3, height = 3)
+ggsave("plot6.png", plot = p, width = 3.5, height = 3)
 
 
 #####################################
