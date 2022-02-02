@@ -1,4 +1,6 @@
-## QUESTION: "How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?"
+## QUESTION: "Compare emissions from motor vehicle sources in Baltimore City 
+## with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). 
+## Which city has seen greater changes over time in motor vehicle emissions?"
 
 
 library(dplyr)
@@ -28,9 +30,11 @@ SCC <- readRDS("./data/Source_Classification_Code.rds")
 
 #####################################
 ## PREPARE DATA
-motor <- NEI[(NEI$type == "ON-ROAD") & (NEI$fips == "24510"), ]
+motor <- NEI[(NEI$type == "ON-ROAD"), ]
+motor <- motor[(motor$fips == "24510") | (motor$fips == "06037"), ]
+
 motorSummary <- motor %>% 
-    group_by(year) %>%
+    group_by(fips, year) %>%
     summarise(sum(Emissions)) %>%
     rename("totalEmissions" = "sum(Emissions)") 
 
@@ -38,17 +42,19 @@ motorSummary <- motor %>%
 #####################################
 ## PLOT AND SAVE
 ## construct plot
-p <- ggplot(motorSummary, aes(x = factor(year), y = totalEmissions))
-p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow")) + 
+p <- ggplot(motorSummary, aes(x = factor(year), y = totalEmissions, fill = factor(year)))
+p <- p + geom_bar(stat = "identity") + 
+    facet_grid(fips ~ ., scales = "free", 
+               labeller = labeller(fips = c("06037" = "Los Angeles County", "24510" = "Baltimore City"))) +
     xlab("Year") +
     ylab(expression('Total PM'[2.5]*' emissions (Tonnes)')) +
     ggtitle(expression('Total PM'[2.5]*' emissions from motor vehicle in the Baltimore City')) +
     theme(legend.position = "none",  text = element_text(size = 5))
 
 ## save the plot
-ggsave("plot5.png", plot = p, width = 3, height = 3)
+ggsave("plot6.png", plot = p, width = 3, height = 3)
 
 
 #####################################
-## ANSWER THE REQUIRED QUESTION: As can be seen from the graph, after 10 years, in Baltimore City,
-## the amount of PM2.5 emitted from motor vehicle sources went down significantly by more than 3 times 
+## ANSWER THE REQUIRED QUESTION: As can be seen from the graph, after 10 years, 
+## Los Angeles has seen greater changes over time in motor vehicle emissions.
