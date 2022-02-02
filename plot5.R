@@ -45,7 +45,7 @@ p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow"))
     theme(legend.position = "none")  ## remove legends
 
 ## save the plot
-ggsave("plot5.png", plot = p, width = 7, height = 7)
+ggsave("plot5.png", plot = p, width = 2, height = 2)
 
 
 #####################################
