@@ -1,3 +1,6 @@
+## QUESTION: "Have total emissions from PM2.5 decreased in the United States from 1999 to 2008?"
+
+
 library(dplyr)
 
 
@@ -39,6 +42,5 @@ dev.off()
 
 
 #####################################
-## QUESTION: "Have total emissions from PM2.5 decreased in the United States from 1999 to 2008?"
-## ANSWER: Yes, the PM2.5 emitted from all sources in the USA 
+## ANSWER THE REQUIRED QUESTION: Yes, the PM2.5 emitted from all sources in the USA 
 ## has been decreased over the 10-year period starting from 1999
