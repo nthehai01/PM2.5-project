@@ -1,6 +1,5 @@
-## QUESTION: "Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable, 
-## which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? 
-## Which have seen increases in emissions from 1999–2008?"
+## QUESTION: "Across the United States, 
+## how have emissions from coal combustion-related sources changed from 1999–2008?"
 
 
 library(dplyr)
@@ -30,25 +29,28 @@ SCC <- readRDS("./data/Source_Classification_Code.rds")
 
 #####################################
 ## PREPARE DATA
-baltimoreEmissionsByYear <- NEI[NEI$fips == "24510", ] %>% 
-    group_by(year, type) %>%
+temp <- grepl("Coal", SCC$EI.Sector)  ## check if the name of source contains "Coal"
+coalDigitStrings <- SCC[temp, 1]  ## extract the SCC digit strings that from coal combustion-related sources
+
+coal <- NEI[NEI$SCC %in% coalDigitStrings, ]  ## extract the records in NEI where the PM2.5 was emitted by coal
+coalSummary <- coal %>% 
+    group_by(year) %>%
     summarise(sum(Emissions)) %>%
-    rename("totalEmissions" = "sum(Emissions)")
+    rename("totalEmissions" = "sum(Emissions)") 
 
 
 #####################################
 ## PLOT AND SAVE
 ## construct plot
-p <- ggplot(baltimoreEmissionsByYear, aes(x = factor(year), y = totalEmissions, fill = factor(year)))
-p <- p + geom_bar(stat = "identity") + 
-    facet_grid(. ~ type) +
+p <- ggplot(coalSummary, aes(x = factor(year), y = totalEmissions/1000))
+p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow")) + 
     xlab("Year") +
-    ylab(expression('Total PM'[2.5]*' emissions (Tonnes)')) +
-    ggtitle(expression('Total PM'[2.5]*' emissions from all sources in Baltimore by type')) +
+    ylab(expression('Total PM'[2.5]*' emissions (Kilotonnes)')) +
+    ggtitle(expression('Total PM'[2.5]*' emissions from coal in the USA')) +
     theme(legend.position = "none")  ## remove legends
 
 ## save the plot
-ggsave("plot3.png", plot = p, width = 14, height = 7)
+ggsave("plot4.png", plot = p, width = 7, height = 7)
 
 
 #####################################
