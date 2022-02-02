@@ -41,7 +41,7 @@ p <- ggplot(motorSummary, aes(x = factor(year), y = totalEmissions))
 p <- p + geom_bar(stat = "identity", fill = c("red", "green", "blue", "yellow")) + 
     xlab("Year") +
     ylab(expression('Total PM'[2.5]*' emissions (Tonnes)')) +
-    ggtitle(expression('Total PM'[2.5]*' emissions from motor vehicle in the USA')) +
+    ggtitle(expression('Total PM'[2.5]*' emissions from motor vehicle in the Baltimore City')) +
     theme(legend.position = "none")  ## remove legends
 
 ## save the plot
